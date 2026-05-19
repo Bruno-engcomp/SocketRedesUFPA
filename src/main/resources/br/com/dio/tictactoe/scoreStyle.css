@@ -1,0 +1,28 @@
+/* Estilo comum para os títulos X e O */
+.player-title {
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
+/* Cor específica do Jogador X (Azul) */
+.title-x {
+    -fx-text-fill: #3498db;
+}
+
+/* Cor específica do Jogador O (Vermelho) */
+.title-o {
+    -fx-text-fill: #e74c3c;
+}
+
+/* Estilo para as caixinhas dos números */
+.score-value {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 5px;
+    -fx-border-color: #dcdde1;
+    -fx-border-radius: 5px;
+    -fx-padding: 5 10 5 10;
+}
