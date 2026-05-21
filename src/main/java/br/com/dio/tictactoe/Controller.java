@@ -16,20 +16,17 @@ public class Controller {
     private Button btn21, btn22, btn23;
     @FXML
     private Button btn31, btn32, btn33;
-    @FXML
-    private Button btnRestart;
-    @FXML
-    private Label statusLabel;
-    @FXML
-    private Label scoreXLabel;
-    @FXML
-    private Label scoreOLabel;
+    @FXML private Button btnRestart;
+    @FXML private Label statusLabel;
+    @FXML private Label scoreXLabel;
+    @FXML private Label scoreOLabel;
 
-    private boolean isXturn = true;
-
+    private TicTacToeClient client;
     ScoreBoard scoreBoard = new ScoreBoard();
     GameLogic gameLogic = new GameLogic();
     List<Button> allButtons = new ArrayList<>();
+
+    private boolean isXturn = true;
 
     @FXML
     private void initialize()
@@ -38,7 +35,11 @@ public class Controller {
 
         scoreBoard.setScoreX(0);
         scoreBoard.setScoreO(0);
+        resetBoardUI();
+    }
 
+    private void resetBoardUI ()
+    {
         for (Button btn : allButtons) {
             btn.setText("");
             btn.setStyle("-fx-font-weight: bold; -fx-padding: 0;"); //-fx-font-size: 40px;
@@ -46,7 +47,6 @@ public class Controller {
         }
         scoreXLabel.setText(String.valueOf(scoreBoard.getScoreX()));
         scoreOLabel.setText(String.valueOf(scoreBoard.getScoreO()));
-
     }
 
     @FXML
