@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class GameServer {
+public class TicTacToeServer {
     private static final int PORT = 12345;
 
     public static void main(String[] args) {
