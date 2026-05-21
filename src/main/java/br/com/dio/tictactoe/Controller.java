@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class HelloController {
+public class Controller {
     @FXML
     private Button btn11, btn12, btn13;
     @FXML
