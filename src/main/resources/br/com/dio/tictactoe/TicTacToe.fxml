@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="487.0" prefWidth="606.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.dio.tictactoe.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="487.0" prefWidth="606.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.dio.tictactoe.Controller">
    <children>
       <ImageView fitHeight="574.0" fitWidth="873.0" layoutX="-267.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -38,19 +38,17 @@
             <RowConstraints maxHeight="100.0" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
+            <Button fx:id="btn11" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <Button fx:id="btn12" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+            <Button fx:id="btn13" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+
+            <Button fx:id="btn21" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="0" GridPane.rowIndex="1" />
             <Button fx:id="btn22" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Button fx:id="btn12" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="1" />
-            <Button fx:id="btn21" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="100.0" prefWidth="100.0" GridPane.rowIndex="1" />
-            <Button fx:id="btn13" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="2" />
             <Button fx:id="btn23" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Button fx:id="btn31" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="100.0" prefWidth="100.0" GridPane.rowIndex="2" />
+
+            <Button fx:id="btn31" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="0" GridPane.rowIndex="2" />
             <Button fx:id="btn32" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Button fx:id="btn33" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <Button fx:id="btn11" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="100.0" prefWidth="100.0">
-               <font>
-                  <Font size="40.0" />
-               </font>
-            </Button>
          </children>
       </GridPane>
       <VBox layoutX="17.0" layoutY="344.0" />
