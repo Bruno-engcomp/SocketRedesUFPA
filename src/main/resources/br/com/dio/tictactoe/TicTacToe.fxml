@@ -2,6 +2,8 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -12,8 +14,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="487.0" prefWidth="606.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.dio.tictactoe.HelloController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="487.0" prefWidth="606.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.dio.tictactoe.Controller">
    <children>
+      <ImageView fitHeight="574.0" fitWidth="873.0" layoutX="-267.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@assets/background.jpg" />
+         </image>
+      </ImageView>
       <Label fx:id="statusLabel" alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="56.0" layoutY="20.0" prefHeight="38.0" prefWidth="491.0" styleClass="status-label" textAlignment="CENTER">
          <font>
             <Font size="24.0" />
@@ -47,17 +54,20 @@
          </children>
       </GridPane>
       <VBox layoutX="17.0" layoutY="344.0" />
-      <Button fx:id="btnRestart" layoutX="483.0" layoutY="353.0" mnemonicParsing="false" onAction="#restartButtonClick" prefHeight="41.0" prefWidth="100.0" styleClass="restart-button" stylesheets="@RestartButton.css" text="RESTART" />
+      <Button fx:id="btnRestart" layoutX="483.0" layoutY="353.0" mnemonicParsing="false" onAction="#restartButtonClick" prefHeight="41.0" prefWidth="100.0" styleClass="restart-button" stylesheets="@RestartButton.css" text="RESTART" textFill="#340e61">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
       <Pane layoutX="17.0" layoutY="324.0" prefHeight="100.0" prefWidth="79.0" stylesheets="@scoreStyle.css">
          <children>
             <Label fx:id="scoreXLabel" layoutX="-3.0" layoutY="20.0" prefHeight="41.0" prefWidth="34.0" styleClass="score-value" />
-            <Line endX="-13.0" endY="105.0" layoutX="52.0" layoutY="-34.0" startX="-13.0" startY="40.0" />
-            <Text layoutX="5.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="player-title" text="X">
+            <Line endX="-13.0" endY="105.0" layoutX="52.0" layoutY="-34.0" startX="-13.0" startY="40.0" stroke="WHITE" />
+            <Text fill="WHITE" layoutX="5.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="player-title" text="X">
                <font>
                   <Font size="25.0" />
                </font>
             </Text>
-            <Text layoutX="55.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="player-title" text="O">
+            <Text fill="WHITE" layoutX="55.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="player-title" text="O">
                <font>
                   <Font size="25.0" />
                </font>
