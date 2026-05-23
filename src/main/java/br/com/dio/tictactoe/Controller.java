@@ -1,4 +1,6 @@
 package br.com.dio.tictactoe;
+
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -9,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Controller {
+public class Controller implements GameMessageListener {
     @FXML
     private Button btn11, btn12, btn13;
     @FXML
@@ -23,72 +25,112 @@ public class Controller {
     @FXML private Button btnIpConfig;
     @FXML private TextField campoIp;
 
-    //private TicTacToeClient client;
+    private TicTacToeClient client;
     ScoreBoard scoreBoard = new ScoreBoard();
     GameLogic gameLogic = new GameLogic();
     List<Button> allButtons = new ArrayList<>();
 
-    private boolean isXturn = true;
-
     @FXML
     private void initialize()
     {
+        allButtons.addAll(Arrays.asList(btn11, btn12, btn13, btn21, btn22, btn23, btn31, btn32, btn33));
 
-        if (btn11 != null) {
-            allButtons.addAll(Arrays.asList(btn11, btn12, btn13, btn21, btn22, btn23, btn31, btn32, btn33));
-            scoreBoard.setScoreX(0);
-            scoreBoard.setScoreO(0);
-            resetBoardUI();
-        }
-    }
+        scoreBoard.setScoreX(0);
+        scoreBoard.setScoreO(0);
+        resetBoardUI();
 
-    private void resetBoardUI ()
-    {
-        for (Button btn : allButtons) {
-            btn.setText("");
-            btn.setStyle("-fx-font-weight: bold; -fx-padding: 0;"); //-fx-font-size: 40px;
-
-        }
-        scoreXLabel.setText(String.valueOf(scoreBoard.getScoreX()));
-        scoreOLabel.setText(String.valueOf(scoreBoard.getScoreO()));
+        // Instancia a classe de rede separada passando "this" como o listener das mensagens
+        client = new TicTacToeClient("localhost", 12345, this);
+        client.start();
     }
 
     @FXML
     private void handleButtonClick(ActionEvent event) {
+        // O controller pergunta para classe de rede se e o meu turno
+        if(!client.isMyTurn()) return;
+
         Button clickedButton = (Button) event.getSource();
-
-        if (clickedButton.getText().isEmpty())
+        if(clickedButton.getText().isEmpty())
         {
-            if(isXturn)
-            {
-                clickedButton.setText("X");
-                clickedButton.setStyle("-fx-text-fill: #3498db; -fx-font-size: 40px; -fx-font-weight: bold;");
-            }  // Blue for X
-            else
-            {
-                clickedButton.setText("O");
-                clickedButton.setStyle("-fx-text-fill: #e74c3c; -fx-font-size: 40px; -fx-font-weight: bold;"); // Red for X
-            }
-            isXturn = !isXturn;
+            int buttonIndex = allButtons.indexOf(clickedButton);
 
-            String winner = gameLogic.checkWinner(allButtons);
-            if (winner != null)
-                announceWinner(winner);
-            else if (gameLogic.isDraw(allButtons))
-                statusLabel.setText("It's draw!");
+            applyMove(clickedButton, client.getMySign());
+            client.sendMove(buttonIndex); // Envia a jogada para a rede através do objeto cliente
+
+            statusLabel.setText("Aguardando Oponente...");
+            checkGameStatus();
         }
     }
 
     @FXML
     private void restartButtonClick()
     {
-        for(Button btn : allButtons)
-        {
+        client.sendRestart();
+        resetBoardUI();
+    }
+
+    // Metodos da interface GameMessageListener
+
+    @Override
+    public void onGameStarted(String sign, boolean isFirstPlayer) {
+        Platform.runLater(() -> statusLabel.setText("Você é o jogador: " + sign +
+                (isFirstPlayer ? " (Seu turno)" : " (Aguardando oponente)")));
+    }
+
+    @Override
+    public void onOpponentMoved(int index, String opponentSign) {
+        Platform.runLater(() -> {
+            Button btn = allButtons.get(index);
+            applyMove(btn, opponentSign);
+            statusLabel.setText("Seu turno (" + client.getMySign() + ")!");
+            checkGameStatus();
+        });
+    }
+
+    @Override
+    public void onRestartReceived() {
+        Platform.runLater(this::resetBoardUI);
+    }
+
+    @Override
+    public void onError(String errorMessage) {
+        Platform.runLater(() -> statusLabel.setText(errorMessage));
+    }
+
+    // Metodos auxiliares da interface grafica, buscando evitar a repeticao de codigo
+
+    private void applyMove(Button button, String sign) {
+        button.setText(sign);
+        if (sign.equals("X")) {
+            button.setStyle("-fx-text-fill: #3498db; -fx-font-size: 40px; -fx-font-weight: bold;");
+        } else {
+            button.setStyle("-fx-text-fill: #e74c3c; -fx-font-size: 40px; -fx-font-weight: bold;");
+        }
+    }
+
+    private void checkGameStatus() {
+        String winner = gameLogic.checkWinner(allButtons);
+        if (winner != null) {
+            announceWinner(winner);
+        } else if (gameLogic.isDraw(allButtons)) {
+            statusLabel.setText("Empate!");
+        }
+    }
+
+    private void resetBoardUI ()
+    {
+        for (Button btn : allButtons) {
             btn.setDisable(false);
             btn.setText("");
-            statusLabel.setText("");
+            btn.setStyle("-fx-font-weight: bold; -fx-padding: 0;"); //-fx-font-size: 40px;
+
         }
-        isXturn = true;
+        statusLabel.setText("Aguardando conexão...");
+        if (client != null && client.getMySign() != null) {
+            statusLabel.setText("Você é o jogador: " + client.getMySign() +
+                    (client.isMyTurn() ? " (Seu turno)" : " (Aguardando oponente)"));
+        }
+        refreshScore();
     }
 
     private void announceWinner (String winner)
@@ -109,7 +151,7 @@ public class Controller {
         scoreOLabel.setText(String.valueOf(scoreBoard.getScoreO()));
     }
 
-
+    // Metodos da tela de start
 
     @FXML
     public void clicouIpConfig(ActionEvent event) {
