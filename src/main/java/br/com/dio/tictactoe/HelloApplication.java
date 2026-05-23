@@ -12,7 +12,7 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         // 1. Point to your Tic-Tac-Toe FXML instead of hello-view
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("TicTacToe.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("start.fxml"));
 
         // 2. Increase the size (600x400) so the grid isn't squashed
         Scene scene = new Scene(fxmlLoader.load(), 600, 450);
@@ -23,6 +23,7 @@ public class HelloApplication extends Application {
 
         stage.setTitle("TicTacToe Game");
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 
