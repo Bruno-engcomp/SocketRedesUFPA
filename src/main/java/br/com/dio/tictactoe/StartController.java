@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class ControllerStart {
+public class StartController {
     @FXML private Button btnIpConfig;
     @FXML
     private TextField campoIp;
@@ -37,5 +37,10 @@ public class ControllerStart {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    public void clicouInfo(ActionEvent event) {
+        System.out.println("Botão Info clicado!");
     }
 }

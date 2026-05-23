@@ -22,8 +22,6 @@ public class Controller implements GameMessageListener {
     @FXML private Label statusLabel;
     @FXML private Label scoreXLabel;
     @FXML private Label scoreOLabel;
-    @FXML private Button btnIpConfig;
-    @FXML private TextField campoIp;
 
     private TicTacToeClient client;
     ScoreBoard scoreBoard = new ScoreBoard();
@@ -149,42 +147,6 @@ public class Controller implements GameMessageListener {
     {
         scoreXLabel.setText(String.valueOf(scoreBoard.getScoreX()));
         scoreOLabel.setText(String.valueOf(scoreBoard.getScoreO()));
-    }
-
-    // Metodos da tela de start
-
-    @FXML
-    public void clicouIpConfig(ActionEvent event) {
-        // Esconde o botão e mostra o input
-        btnIpConfig.setVisible(false);
-        campoIp.setVisible(true);
-        campoIp.requestFocus(); // Coloca o cursor piscando lá dentro
-    }
-
-    @FXML
-    public void clicouStart(ActionEvent event) {
-        String ipDigitado = campoIp.getText();
-        System.out.println("Iniciando jogo! Conectando no IP: " + ipDigitado);
-
-        try {
-
-            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("TicTacToe.fxml"));
-            javafx.scene.Parent root = loader.load();
-
-            javafx.stage.Stage stage = (javafx.stage.Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-            javafx.scene.Scene scene = new javafx.scene.Scene(root);
-            stage.setScene(scene);
-            stage.show();
-
-        } catch (java.io.IOException e) {
-            e.printStackTrace();
-            System.out.println("Erro ao tentar carregar a tela do jogo.");
-        }
-    }
-
-    @FXML
-    public void clicouInfo(ActionEvent event) {
-        System.out.println("Botão Info clicado!");
     }
 
 }
