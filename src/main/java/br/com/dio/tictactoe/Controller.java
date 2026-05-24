@@ -31,21 +31,18 @@ public class Controller implements GameMessageListener {
     @FXML
     private void initialize()
     {
-        allButtons.addAll(Arrays.asList(btn11, btn12, btn13, btn21, btn22, btn23, btn31, btn32, btn33));
 
+        allButtons.addAll(Arrays.asList(btn11, btn12, btn13, btn21, btn22, btn23, btn31, btn32, btn33));
         scoreBoard.setScoreX(0);
         scoreBoard.setScoreO(0);
         resetBoardUI();
 
-        // Instancia a classe de rede separada passando "this" como o listener das mensagens
-        client = new TicTacToeClient("localhost", 12345, this);
-        client.start();
     }
 
     @FXML
     private void handleButtonClick(ActionEvent event) {
         // O controller pergunta para classe de rede se e o meu turno
-        if(!client.isMyTurn()) return;
+        if(client == null || !client.isMyTurn()) return;
 
         Button clickedButton = (Button) event.getSource();
         if(clickedButton.getText().isEmpty())
@@ -63,7 +60,9 @@ public class Controller implements GameMessageListener {
     @FXML
     private void restartButtonClick()
     {
-        client.sendRestart();
+        if (client != null) {
+            client.sendRestart();
+        }
         resetBoardUI();
     }
 
@@ -104,6 +103,12 @@ public class Controller implements GameMessageListener {
         } else {
             button.setStyle("-fx-text-fill: #e74c3c; -fx-font-size: 40px; -fx-font-weight: bold;");
         }
+    }
+
+    public void initData(String ip, int porta) {
+        System.out.println("Conectando em " + ip + ":" + porta);
+        this.client = new TicTacToeClient(ip, porta, this);
+        this.client.start();
     }
 
     private void checkGameStatus() {

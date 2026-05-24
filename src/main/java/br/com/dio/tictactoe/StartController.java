@@ -26,16 +26,32 @@ public class StartController {
 
     @FXML
     public void clicouStart(ActionEvent event) {
-        String ipDigitado = campoIp.getText();
-        System.out.println("Iniciando jogo! Conectando no IP: " + ipDigitado);
+        String ip = campoIp.getText();
+
+        // Se o usuário não digitar nada, define um IP padrão para não quebrar
+        if (ip == null || ip.trim().isEmpty()) {
+            ip = "localhost";
+        }
+
+        System.out.println("Iniciando jogo! Conectando no IP: " + ip);
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("TicTacToe.fxml"));
             Parent root = loader.load();
+
+            // PEGA o controller real do jogo que o JavaFX acabou de criar
+            Controller gameController = loader.getController();
+
+            // Passa o IP digitado e a porta fixa (12345) de forma segura
+            gameController.initData(ip, 12345);
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
+            System.out.println("Erro ao carregar a tela do jogo.");
         }
     }
 
@@ -43,4 +59,5 @@ public class StartController {
     public void clicouInfo(ActionEvent event) {
         System.out.println("Botão Info clicado!");
     }
+
 }
