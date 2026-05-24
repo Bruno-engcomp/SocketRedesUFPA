@@ -22,8 +22,8 @@ public class TicTacToeServer {
 
             // Conexão com o jogador 2 O
             Socket player2 = serverSocket.accept(); // Accept bloqueia o servidor até a chegada de requisição de conexao
-            PrintWriter output2 = new PrintWriter(player1.getOutputStream(), true);
-            BufferedReader input2 = new BufferedReader(new InputStreamReader(player1.getInputStream()));
+            PrintWriter output2 = new PrintWriter(player2.getOutputStream(), true);
+            BufferedReader input2 = new BufferedReader(new InputStreamReader(player2.getInputStream()));
             output1.println("Bem vindo jogador O");
             System.out.println("Jogador 2 (O) conectado");
 
